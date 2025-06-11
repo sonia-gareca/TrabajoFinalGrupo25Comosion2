@@ -1,0 +1,1 @@
+/// aqui va componente funcional para crear un nuevo producto o editar uno existente

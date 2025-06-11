@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+// Importa las páginas o vistas principales
+import Home from './assets/paginas/Home.jsx';
+import Favoritos from './assets/paginas/Favoritos.jsx';
+import DetalleProducto from './assets/paginas/DetalleProducto.jsx';
+import FormularioProducto from './assets/componentes/FormularioProducto.jsx';
+import Footer from './assets/componentes/Footer.jsx';
+import Menu from './assets/componentes/Navbar.jsx';
+// Importa el contexto global de productos
+import { ProductoProvider } from './assets/context/ProductoContext.jsx';
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  return(
+    // Proveedor global para toda la aplicación
+    <ProductoProvider>
+      <BrowserRouter>
+        <Menu />
+        <Routes>
+          {/* Página principal */}
+          <Route path="/" element={<Home />} />
+          
+          {/* Página de productos favoritos */}
+          <Route path="/favoritos" element={<Favoritos />} />
+          
+          {/* Página de detalle individual del producto */}
+          <Route path="/producto/:id" element={<DetalleProducto />} />
+          
+          {/* Formulario para crear nuevo producto */}
+          <Route path="/crear" element={<FormularioProducto />} />
+          
+          {/* Formulario para editar producto existente */}
+          <Route path="/editar/:id" element={<FormularioProducto />} />
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </ProductoProvider>
   )
 }
 
-export default App
+export default App ;
