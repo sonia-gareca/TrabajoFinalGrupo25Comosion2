@@ -26,7 +26,7 @@ const CardProducto = ({ producto }) => {
         <Card.Text>{producto.price} USD</Card.Text>
 
         {/* Botón que lleva a la página de detalle */}
-        <Link to={/producto/${producto.id}}>
+        <Link to={`/producto/${producto.id}`}>
           <Button variant="info" className="me-2">Ver más</Button>
         </Link>
        
