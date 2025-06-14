@@ -6,6 +6,8 @@ import DetalleProducto from './assets/paginas/DetalleProducto.jsx';
 import FormularioProducto from './assets/componentes/FormularioProducto.jsx';
 import Footer from './assets/componentes/Footer.jsx';
 import Menu from './assets/componentes/Navbar.jsx';
+
+
 // Importa el contexto global de productos
 import { ProductoProvider } from './assets/context/ProductoContext.jsx';
 
