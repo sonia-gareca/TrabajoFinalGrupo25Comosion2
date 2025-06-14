@@ -6,7 +6,7 @@ const Menu = () => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand as={Link} to="/">Tienda El Hogar</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">Tienda Grupo 25</Navbar.Brand>
         <Navbar.Toggle aria-controls="menu-principal" />
         <Navbar.Collapse id="menu-principal">
           <Nav className="me-auto">

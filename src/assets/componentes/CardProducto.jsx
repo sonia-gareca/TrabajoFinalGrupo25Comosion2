@@ -11,8 +11,6 @@ const CardProducto = ({ producto }) => {
   // Verifica si el producto ya es favorito
   const esFavorito = favoritos.includes(producto.id);
 
-  // Si está marcado como eliminado, no se muestra
-  if (producto.eliminado) return null;
 
   return (
     <Card className="m-2" style={{ width: '18rem' }}>
@@ -26,8 +24,8 @@ const CardProducto = ({ producto }) => {
         <Card.Text>{producto.price} USD</Card.Text>
 
         {/* Botón que lleva a la página de detalle */}
-        <Link to={/producto/${producto.id}}>
-          <Button variant="info" className="me-2">Ver más</Button>
+        <Link to={`/producto/${producto.id}` }>
+          <Button variant='dark' className="me-2">Ver más</Button>
         </Link>
        
         {/* Botón para marcar/desmarcar como favorito */}
