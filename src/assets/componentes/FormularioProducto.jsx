@@ -1,30 +1,48 @@
-/// aqui va componente funcional para crear un nuevo producto o editar uno existente
+// aqui va componente funcional para crear un nuevo producto o editar uno existente
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import { ProductoContext } from '../context/ProductoContext.jsx';
-import { Form, Button, Container } from 'react-bootstrap';
+import { UsuarioContext } from '../context/UsuarioContext.jsx';
+import { Form, Button, Container, Alert, Row, Col } from 'react-bootstrap';
+import { validarProducto } from '../hooks/useValidacionProducto.js';
+import '../css/formulario.css';
 
 const FormularioProducto = () => {
-  const { productos, agregarProducto, editarProducto } = useContext(ProductoContext);
-  const { id } = useParams(); // Si hay ID, es edición
+  // Obtiene el usuario actual del contexto de usuario
+  const { usuarioActual } = useContext(UsuarioContext);
+  // Obtiene funciones y productos del contexto de productos
+  const { productos, agregarProducto, editarProducto, eliminarProducto } = useContext(ProductoContext);
+  // Hook para navegar entre rutas
   const navigate = useNavigate();
+  // Obtiene el parámetro id de la URL (si existe)
+  const { id } = useParams();
 
-  // Estado local del formulario
+  // Estado para los valores del formulario
   const [formulario, setFormulario] = useState({
+    id: null,
     title: '',
     price: '',
     description: '',
-    category: '',
     image: '',
-    stock: 10, // stock fijo si no lo incluye la API
+    category: ''
   });
 
-  // Si estamos editando, precargar el formulario con los datos del producto
+  // Estado para mostrar mensajes de error
+  const [error, setError] = useState('');
+  // Estado para saber si estamos en modo edición
+  const [modoEdicion, setModoEdicion] = useState(false);
+
+  // Al montar el componente, si hay ID, precarga el producto
   useEffect(() => {
     if (id) {
-      const producto = productos.find(p => p.id === parseInt(id));
-      if (producto) {
-        setFormulario(producto);
+      // Busca el producto a editar por su id
+      const productoEncontrado = productos.find(p => p.id === parseInt(id));
+      if (productoEncontrado) {
+        setFormulario(productoEncontrado);
+        setModoEdicion(true);
+      } else {
+        setError('Producto no encontrado.');
       }
     }
   }, [id, productos]);
@@ -33,83 +51,150 @@ const FormularioProducto = () => {
   const handleChange = (e) => {
     setFormulario({
       ...formulario,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
-  // Enviar el formulario
+  // Enviar el formulario (crear o editar producto)
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (id) {
+    // Valida los datos del formulario
+    const mensaje = validarProducto(formulario);
+    if (mensaje) {
+      setError(mensaje);
+      return;
+    }
+
+    // Si estamos editando, actualiza el producto
+    if (modoEdicion) {
       editarProducto(formulario);
     } else {
-      agregarProducto(formulario);
+      // Si estamos creando, genera un nuevo id y agrega el producto
+      const nuevoId = productos.length > 0 ? Math.max(...productos.map(p => p.id)) + 1 : 1;
+      agregarProducto({ ...formulario, id: nuevoId });
     }
-    navigate('/'); // Redirigir al Home
+
+    // Redirige al home después de guardar
+    navigate('/');
   };
 
+  // Botón para cancelar y volver al Home
+  const handleCancelar = () => {
+    navigate('/');
+  };
+
+  // Botón para eliminar producto (solo si hay id)
+  const handleEliminar = () => {
+    if (id && window.confirm('¿Estás seguro de eliminar este producto?')) {
+      eliminarProducto(parseInt(id));
+      navigate('/');
+    }
+  };
+
+  // Si no es admin, no muestra el formulario
+  if (usuarioActual !== 'admin') return null;
+
   return (
-    <Container className="mt-4">
-      <h2>{id ? 'Editar Producto' : 'Crear Producto'}</h2>
+    <Container className="formulario-container mt-4">
+      <h2>{modoEdicion ? 'Editar Producto' : 'Crear Producto'}</h2>
+
+      {/* Mostrar el mensaje de error si existe */}
+      {error && <Alert variant="danger">{error}</Alert>}
+
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label>Nombre</Form.Label>
-          <Form.Control
-            type="text"
-            name="title"
-            value={formulario.title}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
+        <Row className="formulario-fila">
+          <Col md={6}>
+            <Form.Group className="mb-3">
+              <Form.Label>Nombre</Form.Label>
+              <Form.Control
+                type="text"
+                name="title"
+                value={formulario.title}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
 
-        <Form.Group className="mb-3">
-          <Form.Label>Precio</Form.Label>
-          <Form.Control
-            type="number"
-            name="price"
-            value={formulario.price}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
+          <Col md={6}>
+            <Form.Group className="mb-3">
+              <Form.Label>Precio</Form.Label>
+              <Form.Control
+                type="number"
+                name="price"
+                value={formulario.price}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
 
-        <Form.Group className="mb-3">
-          <Form.Label>Descripción</Form.Label>
-          <Form.Control
-            as="textarea"
-            name="description"
-            value={formulario.description}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
+          <Col md={6}>
+            <Form.Group className="mb-3">
+              <Form.Label>Categoría</Form.Label>
+              <Form.Control
+                type="text"
+                name="category"
+                value={formulario.category}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
 
-        <Form.Group className="mb-3">
-          <Form.Label>Categoría</Form.Label>
-          <Form.Control
-            type="text"
-            name="category"
-            value={formulario.category}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
+          <Col md={6}>
+            <Form.Group className="mb-3">
+              <Form.Label>Stock</Form.Label>
+              <Form.Control
+                type="number"
+                name="stock"
+                value={formulario.stock || 0}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
 
-        <Form.Group className="mb-3">
-          <Form.Label>URL de la Imagen</Form.Label>
-          <Form.Control
-            type="text"
-            name="image"
-            value={formulario.image}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
+          <Col md={12}>
+            <Form.Group className="mb-3">
+              <Form.Label>Descripción</Form.Label>
+              <Form.Control
+                as="textarea"
+                name="description"
+                value={formulario.description}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
 
-        <Button variant="primary" type="submit">
-          {id ? 'Actualizar' : 'Crear'}
-        </Button>
+          <Col md={12}>
+            <Form.Group className="mb-3">
+              <Form.Label>URL de la Imagen</Form.Label>
+              <Form.Control
+                type="text"
+                name="image"
+                value={formulario.image}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+
+        {/* Botones de acción */}
+        <div className="mt-4">
+          {/* Botón para crear o actualizar producto */}
+          <Button variant="dark" type="submit" className="me-2">
+            {modoEdicion ? 'Actualizar' : 'Crear'}
+          </Button>
+
+          {/* Botón para cancelar y volver al home */}
+          <Button variant="secondary" onClick={handleCancelar} className="me-2">
+            Cancelar
+          </Button>
+
+          {/* Botón eliminar solo si estamos editando */}
+          {modoEdicion && (
+            <Button variant="danger" onClick={handleEliminar}>
+              Eliminar
+            </Button>
+          )}
+        </div>
       </Form>
     </Container>
   );
