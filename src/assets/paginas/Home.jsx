@@ -7,7 +7,8 @@ import '../css/home.css';
 
 const Home = () => {
   const { productos } = useContext(ProductoContext);
-
+  // Filtrar productos que no están marcados como eliminados
+  const productosActivos = productos.filter(p => !p.eliminado);
   return (
     <div>
       <Carousel>
@@ -26,7 +27,7 @@ const Home = () => {
       <div className='cards-container'>
         <div className="cards-wrapper">
         {/* Muestra todas las tarjetas de productos */}
-        {productos.map(producto => (
+        {productosActivos.map(producto => (
           <div key={producto.id} className="card-wrapper">
             <CardProducto producto={producto} />
           </div>

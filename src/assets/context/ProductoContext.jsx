@@ -45,11 +45,15 @@ export const ProductoProvider = ({ children }) => {
   const agregarProducto = (nuevoProducto) => {
     setProductos(prev => [...prev, nuevoProducto]);
   };
+  // Devuelve un producto por ID
+const obtenerProducto = (id) => {
+  return productos.find(p => p.id === parseInt(id));
+};
 
   // El proveedor expone todos los datos y funciones al resto de la app
   return (
     <ProductoContext.Provider
-      value={{ productos, favoritos, toggleFavorito, eliminarProducto, editarProducto, agregarProducto }}
+      value={{ productos, favoritos, toggleFavorito, eliminarProducto, editarProducto, agregarProducto, obtenerProducto }}
     >
       {children}
     </ProductoContext.Provider>
