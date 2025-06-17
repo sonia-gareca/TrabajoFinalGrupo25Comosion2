@@ -36,5 +36,42 @@ const InicioSesion = () => {
     navigate('/');
   };
 
-//Pegar acá 
- 
+  return (
+    <div className="login-container">
+      {/* Título del formulario */}
+      <h2 className="titulo-login">Iniciar Sesión</h2>
+      {/* Muestra mensaje de error si existe */}
+      {error && <div className="alerta-error visible">{error}</div>}
+
+      {/* Formulario de inicio de sesión */}
+      <form className="login-form" onSubmit={handleSubmit}>
+        <div className="campo-formulario">
+          <label htmlFor="usuario">Usuario:</label>
+          <input
+            id="usuario"
+            type="text"
+            value={usuario}
+            onChange={(e) => setUsuario(e.target.value)}
+            placeholder="Ingrese su usuario"
+          />
+        </div>
+
+        <div className="campo-formulario">
+          <label htmlFor="clave">Clave:</label>
+          <input
+            id="clave"
+            type="password"
+            value={clave}
+            onChange={(e) => setClave(e.target.value)}
+            placeholder="Ingrese su clave"
+          />
+        </div>
+
+        {/* Botón para enviar el formulario */}
+        <button type="submit" className="btn-ingresar">Ingresar</button>
+      </form>
+    </div>
+  );
+};
+
+export default InicioSesion;
