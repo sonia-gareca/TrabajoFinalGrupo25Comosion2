@@ -25,7 +25,10 @@ const Menu = () => {
               <Nav.Link as={Link} to="/favoritos">Favoritos</Nav.Link>
             )}
             {usuarioActual === 'admin' && (
-              <Nav.Link as={Link} to="/crear">Crear Producto</Nav.Link>
+              <>
+                <Nav.Link as={Link} to="/crear">Crear Producto</Nav.Link>
+                <Nav.Link as={Link} to="/papelera">Papelera</Nav.Link>
+              </>
             )}
           </Nav>
 

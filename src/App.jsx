@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './assets/paginas/Home.jsx';
 import Favoritos from './assets/paginas/Favoritos.jsx';
 import DetalleProducto from './assets/paginas/DetalleProducto.jsx';
@@ -8,9 +8,16 @@ import Menu from './assets/componentes/Navbar.jsx';
 import Errorpagina from './assets/paginas/Errorpagina.jsx';
 import InicioSecion from './assets/componentes/InicioSecion.jsx';
 import UserValidacionURL from './assets/hooks/userValidacionURL.jsx';
-
+import Papelera from './assets/paginas/Papelera.jsx';
 import { ProductoProvider } from './assets/context/ProductoContext.jsx';
-import { UsuarioProvider } from './assets/context/UsuarioContext.jsx';
+import { UsuarioProvider, UsuarioContext } from './assets/context/UsuarioContext.jsx';
+import { useContext } from 'react';
+
+// Ruta protegida solo para Home, redirige al login si no hay sesión
+function RutaProtegidaHome() {
+  const { usuarioActual } = useContext(UsuarioContext);
+  return usuarioActual ? <Home /> : <Navigate to="/login" />;
+}
 
 function App() {
   return (
@@ -24,14 +31,7 @@ function App() {
             <Route path="/login" element={<InicioSecion />} />
 
             {/* Página principal (requiere sesión iniciada) */}
-            <Route
-              path="/"
-              element={
-                <UserValidacionURL>
-                  <Home />
-                </UserValidacionURL>
-              }
-            />
+            <Route path="/" element={<RutaProtegidaHome />} />
 
             {/* Página de productos favoritos */}
             <Route
@@ -52,6 +52,15 @@ function App() {
                 </UserValidacionURL>
               }
             />
+            <Route
+              path="/papelera"
+              element={
+                <UserValidacionURL rol="admin">
+                  <Papelera />
+                </UserValidacionURL>
+              }
+            />
+
 
             {/* Formulario para crear nuevo producto (solo admin) */}
             <Route

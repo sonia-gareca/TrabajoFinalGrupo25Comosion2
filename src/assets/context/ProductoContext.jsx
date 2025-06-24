@@ -1,3 +1,4 @@
+// src/assets/context/ProductoContext.jsx
 import { createContext, useState, useEffect } from 'react';
 
 // Se crea un contexto para compartir estado global de productos y favoritos
@@ -21,16 +22,24 @@ export const ProductoProvider = ({ children }) => {
       });
   }, []);
 
-   // Alterna el estado de favorito de un producto según su ID CREA UN ARRAY CON LOS FAVORITOS
+  // Alterna el estado de favorito de un producto según su ID CREA UN ARRAY CON LOS FAVORITOS
   const toggleFavorito = (id) => {
     setFavoritos(prev =>
       prev.includes(id) ? prev.filter(fid => fid !== id) : [...prev, id]
     );
   };
+
   // Marca un producto como eliminado (borrado lógico)
   const eliminarProducto = (id) => {
     setProductos(prev =>
       prev.map(p => p.id === id ? { ...p, eliminado: true } : p)
+    );
+  };
+
+  // Restaura un producto desde la papelera
+  const restaurarProducto = (id) => {
+    setProductos(prev =>
+      prev.map(p => p.id === id ? { ...p, eliminado: false } : p)
     );
   };
 
@@ -45,15 +54,25 @@ export const ProductoProvider = ({ children }) => {
   const agregarProducto = (nuevoProducto) => {
     setProductos(prev => [...prev, nuevoProducto]);
   };
+
   // Devuelve un producto por ID
-const obtenerProducto = (id) => {
-  return productos.find(p => p.id === parseInt(id));
-};
+  const obtenerProducto = (id) => {
+    return productos.find(p => p.id === parseInt(id));
+  };
 
   // El proveedor expone todos los datos y funciones al resto de la app
   return (
     <ProductoContext.Provider
-      value={{ productos, favoritos, toggleFavorito, eliminarProducto, editarProducto, agregarProducto, obtenerProducto }}
+      value={{
+        productos,
+        favoritos,
+        toggleFavorito,
+        eliminarProducto,
+        editarProducto,
+        agregarProducto,
+        obtenerProducto,
+        restaurarProducto
+      }}
     >
       {children}
     </ProductoContext.Provider>

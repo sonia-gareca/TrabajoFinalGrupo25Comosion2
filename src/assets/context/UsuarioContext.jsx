@@ -4,14 +4,14 @@ export const UsuarioContext = createContext();
 
 export function UsuarioProvider({ children }) {
   const [usuarioActual, setUsuarioActual] = useState(null);
+  const [cargando, setCargando] = useState(true);
 
-  // Al iniciar, cargar el usuario del localStorage si existe
   useEffect(() => {
     const guardado = localStorage.getItem('usuarioActual');
     if (guardado) setUsuarioActual(guardado);
+    setCargando(false);
   }, []);
 
-  // Cada vez que cambia el usuarioActual, lo guardamos
   useEffect(() => {
     if (usuarioActual) {
       localStorage.setItem('usuarioActual', usuarioActual);
@@ -21,7 +21,7 @@ export function UsuarioProvider({ children }) {
   }, [usuarioActual]);
 
   return (
-    <UsuarioContext.Provider value={{ usuarioActual, setUsuarioActual }}>
+    <UsuarioContext.Provider value={{ usuarioActual, setUsuarioActual, cargando }}>
       {children}
     </UsuarioContext.Provider>
   );
