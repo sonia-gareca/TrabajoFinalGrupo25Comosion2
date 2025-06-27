@@ -3,14 +3,14 @@ import { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ProductoContext } from '../context/ProductoContext.jsx';
-import { UsuarioContext } from '../context/UsuarioContext.jsx';
+import { AutorizarContext } from '../context/AurorizacionesContex.jsx';
 import { Form, Button, Container, Alert, Row, Col } from 'react-bootstrap';
 import { validarProducto } from '../hooks/useValidacionProducto.js';
 import '../css/formulario.css';
 
 const FormularioProducto = () => {
   // Obtiene el usuario actual del contexto de usuario
-  const { usuarioActual } = useContext(UsuarioContext);
+  const { usuarioActual } = useContext(AutorizarContext);
   // Obtiene funciones y productos del contexto de productos
   const { productos, agregarProducto, editarProducto, eliminarProducto } = useContext(ProductoContext);
   // Hook para navegar entre rutas
@@ -65,6 +65,18 @@ const FormularioProducto = () => {
       return;
     }
 
+    // Validar que no haya productos repetidos por título
+    const tituloIngresado = formulario.title.trim().toLowerCase();
+    const productoRepetido = productos.find(
+      p =>
+        p.title.trim().toLowerCase() === tituloIngresado &&
+        (!modoEdicion || p.id !== formulario.id)
+    );
+    if (productoRepetido) {
+      setError('Ya existe un producto con ese nombre.');
+      return;
+    }
+
     // Si estamos editando, actualiza el producto
     if (modoEdicion) {
       editarProducto(formulario);
@@ -92,7 +104,7 @@ const FormularioProducto = () => {
   };
 
   // Si no es admin, no muestra el formulario
-  if (usuarioActual !== 'admin') return null;
+  if (usuarioActual?.rol !== 'admin') return null;
 
   return (
     <Container className="formulario-container mt-4">

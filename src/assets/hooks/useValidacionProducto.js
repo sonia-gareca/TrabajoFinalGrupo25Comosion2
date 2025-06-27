@@ -1,7 +1,7 @@
 // Esta función recibe un objeto "producto" y devuelve un mensaje de error si algo está mal.
 // Si todo está bien, devuelve null (sin errores).
 export const validarProducto = (producto) => {
-  const { title, price, description, category, image } = producto; // Desestructuración del objeto
+  const { title, price, description, category, image, stock } = producto; // Desestructuración del objeto
 
   // 1. Validación de campos obligatorios y tipo de título
   if (!title) {
@@ -19,6 +19,10 @@ export const validarProducto = (producto) => {
   // Verifica que el precio sea un número y positivo
   if (isNaN(price) || Number(price) <= 0) {
     return '💰 El precio debe ser un número válido y positivo.';
+  }
+
+  if (isNaN(stock) || Number(stock) <= 0) {
+    return ' El stock debe ser un número válido y positivo!';
   }
 
   if (!category) {

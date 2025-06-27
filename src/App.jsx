@@ -6,16 +6,16 @@ import FormularioProducto from './assets/componentes/FormularioProducto.jsx';
 import Footer from './assets/componentes/Footer.jsx';
 import Menu from './assets/componentes/Navbar.jsx';
 import Errorpagina from './assets/paginas/Errorpagina.jsx';
-import InicioSecion from './assets/componentes/InicioSecion.jsx';
+import InicioSecion from './assets/paginas/InicioSecion.jsx';
 import UserValidacionURL from './assets/hooks/userValidacionURL.jsx';
 
 import { ProductoProvider } from './assets/context/ProductoContext.jsx';
-import { UsuarioProvider } from './assets/context/UsuarioContext.jsx';
+import { AutorizarProvider } from './assets/context/AurorizacionesContex.jsx';
 
 function App() {
   return (
-    <ProductoProvider>
-      <UsuarioProvider>
+    <AutorizarProvider>
+      <ProductoProvider>      
         <BrowserRouter>
           <Menu />
 
@@ -23,17 +23,10 @@ function App() {
             {/* Página de inicio de sesión */}
             <Route path="/login" element={<InicioSecion />} />
 
-            {/* Página principal (requiere sesión iniciada) */}
-            <Route
-              path="/"
-              element={
-                <UserValidacionURL>
-                  <Home />
-                </UserValidacionURL>
-              }
-            />
+            {/* Página principal (Home) visible para todos */}
+            <Route path="/" element={<Home />} />
 
-            {/* Página de productos favoritos */}
+            {/* Página de productos favoritos (protegida) */}
             <Route
               path="/favoritos"
               element={
@@ -43,7 +36,7 @@ function App() {
               }
             />
 
-            {/* Página de detalle individual del producto */}
+            {/* Página de detalle individual del producto (protegida) */}
             <Route
               path="/producto/:id"
               element={
@@ -85,8 +78,8 @@ function App() {
 
           <Footer />
         </BrowserRouter>
-      </UsuarioProvider>
-    </ProductoProvider>
+      </ProductoProvider>
+    </AutorizarProvider>
   );
 }
 

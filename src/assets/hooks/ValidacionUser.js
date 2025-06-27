@@ -1,3 +1,6 @@
+
+import usuarios from '../data/usuarios.json';
+
 // Función para validar usuario y clave en el inicio de sesión
 function validarUsuario(usuario, clave) {
   const errores = {};
@@ -12,14 +15,13 @@ function validarUsuario(usuario, clave) {
     return { valido: false, errores };
   }
 
-  // Valida si es el usuario administrador
-  if (usuario === 'ProfeSosa2025' && clave === 'PV2025grupo25') {
-    return { valido: true, tipo: 'admin' };
-  }
+ // Busca el usuario en el JSON
+  const user = usuarios.find(
+    (u) => u.nombre === usuario && u.password === clave
+  );
 
-  // Valida si es un usuario normal
-  if (usuario === 'Grupo25' && clave === 'PV2025grupo25') {
-    return { valido: true, tipo: 'user' };
+  if (user) {
+    return { valido: true, tipo: user.rol, nombre: user.nombre };
   }
 
   // Si no coincide con ningún usuario válido, retorna error
