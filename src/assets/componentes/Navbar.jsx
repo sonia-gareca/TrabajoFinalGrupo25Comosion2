@@ -2,16 +2,20 @@
 import { Navbar, Nav, Container, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { UsuarioContext } from '../context/UsuarioContext.jsx';
+import { AutorizarContext } from '../context/AurorizacionesContex.jsx';
 
 const Menu = () => {
-  const { usuarioActual, setUsuarioActual } = useContext(UsuarioContext);
+  const { usuarioActual, setUsuarioActual } = useContext(AutorizarContext);
   const navigate = useNavigate();
 
+  // Cierra sesión y redirige al Home
   const cerrarSesion = () => {
-    setUsuarioActual(null);        // limpia sesión
-    navigate('/login');            // redirige a login
+    setUsuarioActual(null);
+    navigate('/');
   };
+
+  // Redirige a la página de login
+  const irALogin = () => navigate('/login');
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
@@ -24,16 +28,21 @@ const Menu = () => {
             {usuarioActual && (
               <Nav.Link as={Link} to="/favoritos">Favoritos</Nav.Link>
             )}
-            {usuarioActual === 'admin' && (
+            {usuarioActual?.rol === 'admin' && (
               <Nav.Link as={Link} to="/crear">Crear Producto</Nav.Link>
             )}
           </Nav>
-
+          {/* Si NO hay usuario logueado, muestra botón de iniciar sesión */}
+          {!usuarioActual && (
+            <Button variant="outline-light" size="sm" onClick={irALogin}>
+              Iniciar sesión
+            </Button>
+          )}
           {/* Info de usuario logueado y botón de cierre */}
           {usuarioActual && (
             <div className="d-flex align-items-center">
               <span className="text-light me-3">
-                Rol: <strong>{usuarioActual}</strong>
+                Rol: <strong>{usuarioActual?.rol}</strong>
               </span>
               <Button variant="outline-light" size="sm" onClick={cerrarSesion}>
                 Cerrar sesión

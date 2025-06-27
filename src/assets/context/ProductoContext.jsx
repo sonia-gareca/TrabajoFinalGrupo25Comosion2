@@ -1,4 +1,5 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
+import { AutorizarContext } from './AurorizacionesContex.jsx';
 
 // Se crea un contexto para compartir estado global de productos y favoritos
 export const ProductoContext = createContext(null);
@@ -45,6 +46,19 @@ export const ProductoProvider = ({ children }) => {
   const agregarProducto = (nuevoProducto) => {
     setProductos(prev => [...prev, nuevoProducto]);
   };
+   
+  // Obtén el usuario actual del contexto de autorización
+  const { usuarioActual } = useContext(AutorizarContext);
+
+  // Limpia favoritos cada vez que cambia el usuario logueado
+  useEffect(() => {
+    setFavoritos([]);
+  }, [usuarioActual]);
+
+   // Limpia favoritos manualmente (opcional)
+  const limpiarFavoritos = () => setFavoritos([]);
+
+
   // Devuelve un producto por ID
 const obtenerProducto = (id) => {
   return productos.find(p => p.id === parseInt(id));
@@ -53,7 +67,7 @@ const obtenerProducto = (id) => {
   // El proveedor expone todos los datos y funciones al resto de la app
   return (
     <ProductoContext.Provider
-      value={{ productos, favoritos, toggleFavorito, eliminarProducto, editarProducto, agregarProducto, obtenerProducto }}
+      value={{ productos, favoritos, toggleFavorito, eliminarProducto, editarProducto, agregarProducto, obtenerProducto, limpiarFavoritos }}
     >
       {children}
     </ProductoContext.Provider>

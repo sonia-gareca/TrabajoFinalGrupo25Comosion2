@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { ProductoContext } from '../context/ProductoContext.jsx';
-import { UsuarioContext } from '../context/UsuarioContext.jsx';
+import { AutorizarContext } from '../context/AurorizacionesContex.jsx';
 import '../css/detalleProducto.css';
 
 const DetalleProducto = () => {
@@ -13,7 +13,7 @@ const DetalleProducto = () => {
   // Acceso al contexto de productos para obtener productos, favoritos y funciones
   const { productos, toggleFavorito, favoritos, eliminarProducto } = useContext(ProductoContext);
   // Acceso al contexto de usuario para saber quién está logueado
-  const { usuarioActual } = useContext(UsuarioContext);
+  const { usuarioActual } = useContext(AutorizarContext);
 
   // Busca el producto que coincide con el ID recibido por URL
   const producto = productos.find(p => p.id === parseInt(id));

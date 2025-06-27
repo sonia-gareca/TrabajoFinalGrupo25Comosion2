@@ -1,11 +1,11 @@
 
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UsuarioContext } from '../context/UsuarioContext.jsx';
+import { AutorizarContext } from '../context/AurorizacionesContex.jsx';
 import Errorpagina from '../paginas/Errorpagina.jsx';
 
 const UserValidacionURL = ({ children, rol }) => {
-  const { usuarioActual } = useContext(UsuarioContext);
+  const { usuarioActual } = useContext(AutorizarContext);
   const navigate = useNavigate();
   const [mostrarError, setMostrarError] = useState(false);
 
@@ -31,7 +31,7 @@ const UserValidacionURL = ({ children, rol }) => {
   }
 
   // Si hay sesión pero el rol no coincide
-  if (rol && usuarioActual !== rol) {
+  if (rol && usuarioActual.rol !== rol) {
     return <Errorpagina mensaje="ERROR 102: No tiene permisos para acceder a esta página" />;
   }
 
@@ -40,3 +40,4 @@ const UserValidacionURL = ({ children, rol }) => {
 };
 
 export default UserValidacionURL;
+ 
