@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { createContext, useState, useEffect, useContext } from 'react';
 import { AutorizarContext } from './AurorizacionesContex.jsx';
+=======
+// src/assets/context/ProductoContext.jsx
+import { createContext, useState, useEffect } from 'react';
+>>>>>>> 5ce9d87d23f8798a72836ac590f8eebd4f84e029
 
 // Se crea un contexto para compartir estado global de productos y favoritos
 export const ProductoContext = createContext(null);
@@ -22,12 +27,13 @@ export const ProductoProvider = ({ children }) => {
       });
   }, []);
 
-   // Alterna el estado de favorito de un producto según su ID CREA UN ARRAY CON LOS FAVORITOS
+  // Alterna el estado de favorito de un producto según su ID CREA UN ARRAY CON LOS FAVORITOS
   const toggleFavorito = (id) => {
     setFavoritos(prev =>
       prev.includes(id) ? prev.filter(fid => fid !== id) : [...prev, id]
     );
   };
+
   // Marca un producto como eliminado (borrado lógico)
   const eliminarProducto = (id) => {
   setProductos(prev =>
@@ -38,6 +44,13 @@ export const ProductoProvider = ({ children }) => {
   setFavoritos(prev => prev.filter(fid => fid !== id));
 };
 
+
+  // Restaura un producto desde la papelera
+  const restaurarProducto = (id) => {
+    setProductos(prev =>
+      prev.map(p => p.id === id ? { ...p, eliminado: false } : p)
+    );
+  };
 
   // Edita un producto existente con nuevos datos
   const editarProducto = (nuevoProducto) => {
@@ -50,6 +63,7 @@ export const ProductoProvider = ({ children }) => {
   const agregarProducto = (nuevoProducto) => {
     setProductos(prev => [...prev, nuevoProducto]);
   };
+<<<<<<< HEAD
    
   // Obtén el usuario actual del contexto de autorización
   const { usuarioActual } = useContext(AutorizarContext);
@@ -62,16 +76,31 @@ export const ProductoProvider = ({ children }) => {
    // Limpia favoritos manualmente (opcional)
   const limpiarFavoritos = () => setFavoritos([]);
 
+=======
+>>>>>>> 5ce9d87d23f8798a72836ac590f8eebd4f84e029
 
   // Devuelve un producto por ID
-const obtenerProducto = (id) => {
-  return productos.find(p => p.id === parseInt(id));
-};
+  const obtenerProducto = (id) => {
+    return productos.find(p => p.id === parseInt(id));
+  };
 
   // El proveedor expone todos los datos y funciones al resto de la app
   return (
     <ProductoContext.Provider
+<<<<<<< HEAD
       value={{ productos, favoritos, toggleFavorito, eliminarProducto, editarProducto, agregarProducto, obtenerProducto, limpiarFavoritos }}
+=======
+      value={{
+        productos,
+        favoritos,
+        toggleFavorito,
+        eliminarProducto,
+        editarProducto,
+        agregarProducto,
+        obtenerProducto,
+        restaurarProducto
+      }}
+>>>>>>> 5ce9d87d23f8798a72836ac590f8eebd4f84e029
     >
       {children}
     </ProductoContext.Provider>
