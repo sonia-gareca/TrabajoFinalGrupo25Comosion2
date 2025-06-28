@@ -199,13 +199,6 @@ const FormularioProducto = () => {
           <Button variant="secondary" onClick={handleCancelar} className="me-2">
             Cancelar
           </Button>
-
-          {/* Botón eliminar solo si estamos editando */}
-          {modoEdicion && (
-            <Button variant="danger" onClick={handleEliminar}>
-              Eliminar
-            </Button>
-          )}
         </div>
       </Form>
     </Container>

@@ -28,3 +28,26 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   border-radius: 8px; /* opcional, solo si te gusta */
 }
+
+@media (max-width: 576px) {
+  .carousel-img-fija {
+    height: 140px !important;
+  }
+  .cards-container {
+    padding: 0 0.5rem;
+    margin-top: 1rem;
+  }
+  h1 {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+  .card {
+    width: 100% !important;
+    min-width: unset;
+    margin: 0 auto 1rem auto;
+  }
+  .card .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}

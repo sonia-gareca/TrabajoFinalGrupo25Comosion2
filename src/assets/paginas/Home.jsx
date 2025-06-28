@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { ProductoContext } from '../context/ProductoContext.jsx';
 import CardProducto from '../componentes/CardProducto.jsx';
-import { Carousel } from 'react-bootstrap';
+import { Carousel, Row, Col } from 'react-bootstrap';
 import '../css/home.css';
 
 
@@ -25,14 +25,18 @@ const Home = () => {
       </Carousel>
       <h1>Todos Nuestros Productos</h1>
       <div className='cards-container'>
-        <div className="cards-wrapper">
-        {/* Muestra todas las tarjetas de productos */}
-        {productosActivos.map(producto => (
-          <div key={producto.id} className="card-wrapper">
-            <CardProducto producto={producto} />
-          </div>
-        ))}
-      </div>
+        <Row>
+          {/*muestra todas las cards de producto*/}
+          {productosActivos.map(producto => (
+            <Col
+              key={producto.id}
+              xs={12} sm={6} md={4} lg={3} // 1 card por fila en móvil, 2 en tablet, 3-4 en PC
+              className="mb-4 d-flex justify-content-center"
+            >
+              <CardProducto producto={producto} />
+            </Col>
+          ))}
+        </Row>
       </div>
       
     </div>

@@ -1,26 +1,45 @@
 import { useContext } from 'react';
-import { ProductoContext } from '../context/ProductoContext.jsx';
-import CardProducto from '../componentes/CardProducto.jsx';
+import { ProductoContext } from '../context/ProductoContext';
+import CardProducto from '../componentes/CardProducto';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Favoritos = () => {
   const { productos, favoritos } = useContext(ProductoContext);
 
-  // Filtra los productos que son favoritos
-  const favoritosFiltrados = productos.filter(p => favoritos.includes(p.id));
+  // Filtra solo los productos favoritos no eliminados
+  const productosFavoritos = productos.filter(
+    p => favoritos.includes(p.id) && !p.eliminado
+  );
 
   return (
-  <>
-    <div className="text-center my-4">
-      <h1>Productos Favoritos</h1>
-      <p>Estos son tus productos favoritos Seleccionados</p>
-      </div>
-    <div className="d-flex flex-wrap justify-content-center">
-      {/* Muestra solo los productos favoritos */}
-      {favoritosFiltrados.map(producto => (
-        <CardProducto key={producto.id} producto={producto} />
-      ))}
-    </div>
-    </>
+    <Container className="mt-5">
+      <h2 className="text-center mb-4">💖 Mis Favoritos</h2>
+
+      {productosFavoritos.length > 0 ? (
+        <Row>
+          {productosFavoritos.map(producto => (
+            <Col key={producto.id} md={4}>
+              <CardProducto producto={producto} modo="favoritos" />
+            </Col>
+          ))}
+        </Row>
+      ) : (
+        <div className="text-center mt-5">
+          {/* Ícono grande */}
+          <div style={{ fontSize: '5rem', color: '#ccc' }}>🤍</div>
+          {/* Mensaje amigable */}
+          <h4 className="mt-3">Aún no tienes productos favoritos</h4>
+          <p className="text-muted">¡Explora la tienda y agrega algunos!</p>
+          {/* Botón para volver al home */}
+          <Link to="/">
+            <Button variant="primary" className="mt-3">
+              Ir al inicio
+            </Button>
+          </Link>
+        </div>
+      )}
+    </Container>
   );
 };
 

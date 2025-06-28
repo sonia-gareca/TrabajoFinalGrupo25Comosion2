@@ -20,7 +20,7 @@ const Menu = () => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand as={Link} to="/">Tienda Grupo 25</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">Tienda ClickZone</Navbar.Brand>
         <Navbar.Toggle aria-controls="menu-principal" />
         <Navbar.Collapse id="menu-principal">
           <Nav className="me-auto">
@@ -28,8 +28,15 @@ const Menu = () => {
             {usuarioActual && (
               <Nav.Link as={Link} to="/favoritos">Favoritos</Nav.Link>
             )}
+<<<<<<< HEAD
             {usuarioActual?.rol === 'admin' && (
-              <Nav.Link as={Link} to="/crear">Crear Producto</Nav.Link>
+=======
+            {usuarioActual === 'admin' && (
+>>>>>>> 5ce9d87d23f8798a72836ac590f8eebd4f84e029
+              <>
+                <Nav.Link as={Link} to="/crear">Crear Producto</Nav.Link>
+                <Nav.Link as={Link} to="/papelera">Papelera</Nav.Link>
+              </>
             )}
           </Nav>
           {/* Si NO hay usuario logueado, muestra botón de iniciar sesión */}
