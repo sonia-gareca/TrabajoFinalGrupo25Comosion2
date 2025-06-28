@@ -30,10 +30,14 @@ export const ProductoProvider = ({ children }) => {
   };
   // Marca un producto como eliminado (borrado lógico)
   const eliminarProducto = (id) => {
-    setProductos(prev =>
-      prev.map(p => p.id === id ? { ...p, eliminado: true } : p)
-    );
-  };
+  setProductos(prev =>
+    prev.map(p => p.id === id ? { ...p, eliminado: true } : p)
+  );
+
+  // Quita el ID del array de favoritos si estaba
+  setFavoritos(prev => prev.filter(fid => fid !== id));
+};
+
 
   // Edita un producto existente con nuevos datos
   const editarProducto = (nuevoProducto) => {

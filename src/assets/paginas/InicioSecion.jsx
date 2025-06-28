@@ -10,7 +10,6 @@ const InicioSesion = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // Esta función se pasa al formulario y valida el usuario
   const handleLogin = (usuario, clave) => {
     const resultado = validarUsuario(usuario, clave);
     if (!resultado.valido) {
@@ -18,14 +17,23 @@ const InicioSesion = () => {
       setError(mensajes);
       return;
     }
-    setUsuarioActual ({ nombre: resultado.nombre, rol: resultado.tipo }); // 'admin' o 'user'
+    setUsuarioActual({ nombre: resultado.nombre, rol: resultado.tipo });
     navigate('/');
   };
 
   return (
-    <div className="login-container">
-      <h2 className="titulo-login">Iniciar Sesión</h2>
-      <LoginForm onSubmit={handleLogin} error={error} />
+    <div className="login-wrapper">
+      <div className="login-left">
+        <h2>¡¡ Bienvenidos a nuestra !!<br />Tienda ClickZone</h2>
+        <p>¡Inicie sesión para obtener nuevas funciones!</p>
+        <p>Saludos para el equipo de PV-2025!</p>
+      </div>
+      <div className="login-right">
+        <div className="login-box">
+          <h3>Inicie Sesión</h3>
+          <LoginForm onSubmit={handleLogin} error={error} />
+        </div>
+      </div>
     </div>
   );
 };

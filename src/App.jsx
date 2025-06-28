@@ -8,6 +8,7 @@ import Menu from './assets/componentes/Navbar.jsx';
 import Errorpagina from './assets/paginas/Errorpagina.jsx';
 import InicioSecion from './assets/paginas/InicioSecion.jsx';
 import UserValidacionURL from './assets/hooks/userValidacionURL.jsx';
+import Papelera from './assets/paginas/Papelera.jsx';
 
 import { ProductoProvider } from './assets/context/ProductoContext.jsx';
 import { AutorizarProvider } from './assets/context/AurorizacionesContex.jsx';
@@ -62,6 +63,16 @@ function App() {
               element={
                 <UserValidacionURL rol="admin">
                   <FormularioProducto />
+                </UserValidacionURL>
+              }
+            />
+
+            {/* Papelera solo para admin */}
+            <Route
+              path="/papelera"
+              element={
+                <UserValidacionURL rol="admin">
+                  <Papelera />
                 </UserValidacionURL>
               }
             />
