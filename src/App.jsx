@@ -19,6 +19,7 @@ import UserValidacionURL from './assets/hooks/userValidacionURL.jsx';
 import Papelera from './assets/paginas/Papelera.jsx';
 <<<<<<< HEAD
 
+import PaginaAcercaDe from './assets/paginas/PaginaAcercaDe.jsx';
 import { ProductoProvider } from './assets/context/ProductoContext.jsx';
 import { AutorizarProvider } from './assets/context/AurorizacionesContex.jsx';
 =======
@@ -92,6 +93,16 @@ function App() {
               }
             />
 
+
+            {/* Página "Acerca de" */}
+            <Route 
+              path="/acerca-de" 
+              element={
+                <UserValidacionURL>
+                  <PaginaAcercaDe />  
+                </UserValidacionURL>
+                } 
+              />
 
             {/* Formulario para crear nuevo producto (solo admin) */}
             <Route
