@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { BrowserRouter } from 'react-router-dom';
 import Menu from './assets/componentes/Navbar';
 import Footer from './assets/componentes/Footer';
@@ -19,7 +18,6 @@ import UserValidacionURL from './assets/hooks/userValidacionURL.jsx';
 import Papelera from './assets/paginas/Papelera.jsx';
 <<<<<<< HEAD
 
-import PaginaAcercaDe from './assets/paginas/PaginaAcercaDe.jsx';
 import { ProductoProvider } from './assets/context/ProductoContext.jsx';
 import { AutorizarProvider } from './assets/context/AurorizacionesContex.jsx';
 =======
@@ -49,7 +47,6 @@ function App() {
           {/* Componente de navegación y menú */}
           {/* Este componente contiene enlaces de navegación y posiblemente un logo */}
           <Menu />
-<<<<<<< HEAD
           <RoutesApp />
 =======
 
@@ -93,16 +90,6 @@ function App() {
               }
             />
 
-
-            {/* Página "Acerca de" */}
-            <Route 
-              path="/acerca-de" 
-              element={
-                <UserValidacionURL>
-                  <PaginaAcercaDe />  
-                </UserValidacionURL>
-                } 
-              />
 
             {/* Formulario para crear nuevo producto (solo admin) */}
             <Route

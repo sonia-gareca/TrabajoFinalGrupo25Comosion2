@@ -1,11 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
-<<<<<<< HEAD
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { AutorizarContext } from '../context/AurorizacionesContex.jsx';
-=======
-import { useLocation, useNavigate } from 'react-router-dom';
-import { UsuarioContext } from '../context/UsuarioContext.jsx';
->>>>>>> 5ce9d87d23f8798a72836ac590f8eebd4f84e029
 import Errorpagina from '../paginas/Errorpagina.jsx';
 
 const UserValidacionURL = ({ children, rol }) => {
@@ -35,13 +30,8 @@ const UserValidacionURL = ({ children, rol }) => {
     return <Errorpagina mensaje="ERROR 102: Debe iniciar sesión para acceder a esta página" />;
   }
 
-<<<<<<< HEAD
   // Si hay sesión pero el rol no coincide
   if (rol && usuarioActual.rol !== rol) {
-=======
-  // Si el usuario no tiene el rol correcto
-  if (usuarioActual && rol && usuarioActual !== rol) {
->>>>>>> 5ce9d87d23f8798a72836ac590f8eebd4f84e029
     return <Errorpagina mensaje="ERROR 102: No tiene permisos para acceder a esta página" />;
   }
 
@@ -49,4 +39,3 @@ const UserValidacionURL = ({ children, rol }) => {
 };
 
 export default UserValidacionURL;
- 
