@@ -28,7 +28,11 @@ const Menu = () => {
             {usuarioActual && (
               <Nav.Link as={Link} to="/favoritos">Favoritos</Nav.Link>
             )}
+<<<<<<< HEAD
             {usuarioActual?.rol === 'admin' && (
+=======
+            {usuarioActual === 'admin' && (
+>>>>>>> 5ce9d87d23f8798a72836ac590f8eebd4f84e029
               <>
                 <Nav.Link as={Link} to="/crear">Crear Producto</Nav.Link>
                 <Nav.Link as={Link} to="/papelera">Papelera</Nav.Link>
