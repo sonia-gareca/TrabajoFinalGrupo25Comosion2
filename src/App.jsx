@@ -9,6 +9,7 @@ import Errorpagina from './assets/paginas/Errorpagina.jsx';
 import InicioSecion from './assets/componentes/InicioSecion.jsx';
 import UserValidacionURL from './assets/hooks/userValidacionURL.jsx';
 
+import PaginaAcercaDe from './assets/paginas/PaginaAcercaDe.jsx';
 import { ProductoProvider } from './assets/context/ProductoContext.jsx';
 import { UsuarioProvider } from './assets/context/UsuarioContext.jsx';
 
@@ -52,6 +53,16 @@ function App() {
                 </UserValidacionURL>
               }
             />
+
+            {/* Página "Acerca de" */}
+            <Route 
+              path="/acerca-de" 
+              element={
+                <UserValidacionURL>
+                  <PaginaAcercaDe />  
+                </UserValidacionURL>
+                } 
+              />
 
             {/* Formulario para crear nuevo producto (solo admin) */}
             <Route

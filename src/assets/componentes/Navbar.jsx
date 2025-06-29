@@ -27,8 +27,9 @@ const Menu = () => {
             {usuarioActual === 'admin' && (
               <Nav.Link as={Link} to="/crear">Crear Producto</Nav.Link>
             )}
+            <Nav.Link as={Link} to="/acerca-de">Acerca de</Nav.Link>
           </Nav>
-
+            
           {/* Info de usuario logueado y botón de cierre */}
           {usuarioActual && (
             <div className="d-flex align-items-center">
@@ -39,6 +40,7 @@ const Menu = () => {
                 Cerrar sesión
               </Button>
             </div>
+            
           )}
         </Navbar.Collapse>
       </Container>
