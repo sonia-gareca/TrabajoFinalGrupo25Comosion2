@@ -1,14 +1,26 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { ProductoContext } from '../context/ProductoContext.jsx';
 import CardProducto from '../componentes/CardProducto.jsx';
-import { Carousel, Row, Col } from 'react-bootstrap';
+import { Carousel } from 'react-bootstrap';
 import '../css/home.css';
-
+import '../css/filtrar.css';
 
 const Home = () => {
   const { productos } = useContext(ProductoContext);
   // Filtrar productos que no están marcados como eliminados
   const productosActivos = productos.filter(p => !p.eliminado);
+
+  // Obtener categorías únicas
+  const categorias = [...new Set(productosActivos.map(p => p.category))];
+
+  // Estado para la categoría seleccionada
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('todas');
+
+  // Filtrar productos por categoría seleccionada
+  const productosFiltrados = categoriaSeleccionada === 'todas'
+    ? productosActivos
+    : productosActivos.filter(p => p.category === categoriaSeleccionada);
+
   return (
     <div>
       <Carousel>
@@ -24,23 +36,35 @@ const Home = () => {
         </Carousel.Item>
       </Carousel>
       <h1>Todos Nuestros Productos</h1>
-      <div className='cards-container'>
-        <Row>
-          {/*muestra todas las cards de producto*/}
-          {productosActivos.map(producto => (
-            <Col
-              key={producto.id}
-              xs={12} sm={6} md={4} lg={3} // 1 card por fila en móvil, 2 en tablet, 3-4 en PC
-              className="mb-4 d-flex justify-content-center"
-            >
-              <CardProducto producto={producto} />
-            </Col>
+
+      {/* Lista desplegable para filtrar por categoría */}
+      <div className="filtrar-barra">
+        <label htmlFor="categoria-select">Filtrar por categoría: </label>
+        <select
+          id="categoria-select"
+          value={categoriaSeleccionada}
+          onChange={e => setCategoriaSeleccionada(e.target.value)}
+        >
+          <option value="todas">Todas</option>
+          {categorias.map(cat => (
+            <option key={cat} value={cat}>{cat}</option>
           ))}
-        </Row>
+        </select>
+      </div>
+
+      <div className='cards-container'>
+        <div className="cards-wrapper">
+          {/* Muestra todas las tarjetas de productos filtrados */}
+          {productosFiltrados.map(producto => (
+            <div key={producto.id} className="card-wrapper">
+              <CardProducto producto={producto} />
+            </div>
+          ))}
+        </div>
       </div>
       
     </div>
   );
 };
 
-export default Home;
+export default Home;

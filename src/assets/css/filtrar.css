@@ -1,0 +1,35 @@
+/* Contenedor de la barra de filtro */
+.filtrar-barra {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 24px 0 32px 0;
+  padding: 12px 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  gap: 12px;
+}
+
+/* Etiqueta */
+.filtrar-barra label {
+  font-weight: 500;
+  color: #333;
+  margin-right: 8px;
+}
+
+/* Select */
+.filtrar-barra select {
+  padding: 8px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #f8fafc;
+  font-size: 1rem;
+  color: #222;
+  transition: border 0.2s;
+}
+
+.filtrar-barra select:focus {
+  border: 1.5px solid #007bff;
+  outline: none;
+}
