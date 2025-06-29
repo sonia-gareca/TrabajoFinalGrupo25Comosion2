@@ -95,7 +95,7 @@
 .login-box form button {
   width: 100%;
   padding: 14px;
-  background-color: #1583f1;
+  background-color: #020b14;
   color: white;
   border: none;
   border-radius: 8px;
@@ -106,7 +106,7 @@
 }
 
 .login-box form button:hover {
-  background-color: #1f66ae;
+  background-color: #010c18;
   transform: translateY(-2px);
 }
 

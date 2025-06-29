@@ -14,6 +14,9 @@ export const ProductoProvider = ({ children }) => {
   const [productos, setProductos] = useState([]);
   // Estado para almacenar los IDs de productos marcados como favoritos
   const [favoritos, setFavoritos] = useState([]);
+  // Estado para almacenar los productos originales (sin eliminar)
+  const [productosOriginales, setProductosOriginales] = useState([]);
+
 
   // Se ejecuta solo una vez al iniciar la aplicación
   useEffect(() => {
@@ -24,6 +27,7 @@ export const ProductoProvider = ({ children }) => {
         // Se agregan flags de eliminado (para el borrado lógico)
         const dataConFlags = data.map(p => ({ ...p, eliminado: false }));
         setProductos(dataConFlags);
+        setProductosOriginales(dataConFlags); // Copia base
       });
   }, []);
 
@@ -36,11 +40,18 @@ export const ProductoProvider = ({ children }) => {
 
   // Marca un producto como eliminado (borrado lógico)
   const eliminarProducto = (id) => {
+  // Buscar el producto original
+  const productoOriginal = productosOriginales.find(p => p.id === id);
+  // Si no se encuentra, no hace nada
+  if (!productoOriginal) return; // Si no se encuentra, no hace nada
+  // Reemplaza el producto actual con su versión original + marcado como eliminado
   setProductos(prev =>
-    prev.map(p => p.id === id ? { ...p, eliminado: true } : p)
+    // Reemplaza el producto actual con su versión original + marcado como eliminado
+    prev.map(p =>
+      p.id === id ? { ...productoOriginal, eliminado: true } : p
+    )
   );
-
-  // Quita el ID del array de favoritos si estaba
+  // Eliminarlo de favoritos si estaba
   setFavoritos(prev => prev.filter(fid => fid !== id));
 };
 
@@ -54,7 +65,9 @@ export const ProductoProvider = ({ children }) => {
 
   // Edita un producto existente con nuevos datos
   const editarProducto = (nuevoProducto) => {
+    // Verifica si el producto existe
     setProductos(prev =>
+      // Actualiza el producto existente con los nuevos datos
       prev.map(p => p.id === nuevoProducto.id ? nuevoProducto : p)
     );
   };
@@ -64,7 +77,10 @@ export const ProductoProvider = ({ children }) => {
     setProductos(prev => [...prev, nuevoProducto]);
   };
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
    
+>>>>>>> 4de1597eb081e3abf97a5ec5bcac7745604da38d
   // Obtén el usuario actual del contexto de autorización
   const { usuarioActual } = useContext(AutorizarContext);
 

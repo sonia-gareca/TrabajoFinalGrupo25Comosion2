@@ -35,14 +35,14 @@ const CardProducto = ({ producto, modo }) => {
             {(modo !== 'favoritos' && usuarioActual.rol === 'admin') && (
               <>
                 <Link to={`/editar/${producto.id}`}>
-                  <Button variant="warning">Editar</Button>
+                  <Button variant="dark" className="text-white">Editar</Button>
                 </Link>
-                <Button variant="danger" onClick={handleEliminar}>Eliminar</Button>
+                <Button variant="dark" className="text-white" onClick={handleEliminar}>Eliminar</Button>
               </>
             )}
             {/* Botón VER MÁS visible solo para usuarios logeados */}
             <Link to={`/producto/${producto.id}`}>
-              <Button variant="info">Ver más</Button>
+              <Button variant="dark" className="text-white">Ver más</Button>
             </Link>
             {/* Botón para agregar o quitar favoritos Solo para Usuarios logeados */}
             <Button
