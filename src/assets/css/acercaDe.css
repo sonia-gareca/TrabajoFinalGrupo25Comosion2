@@ -1,41 +1,59 @@
+/* src/assets/css/acercaDe.css */
+
 .acerca-de-container {
-  padding: 2rem 0;
+  padding: 2rem 1rem;
+  background-color: #f8f9fa;
 }
 
 .acerca-de-container h1 {
-  color: #13c18d;
-  font-size: 2.5rem;
+  color: #010b08;
+  font-size: 2.2rem;
   font-weight: 800;
   margin-bottom: 1.5rem;
-  text-shadow: 2px 4px 16px rgba(0,0,0,0.18);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
+
 .acerca-de-container h2 {
   color: #0d413e;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  font-weight: 700;
+  font-weight: 600;
+  border-bottom: 2px solid #01130e;
+  padding-bottom: 0.3rem;
 }
-.descripcion-proyecto {
-  background: #e6f9f3;
+
+.descripcion-proyecto,
+.contacto,
+.tecnologias-usadas ul {
+  background: #ffffff;
   border-radius: 12px;
   padding: 1.2rem;
   color: #0d413e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.descripcion-proyecto {
   margin-bottom: 2rem;
 }
+
 .tecnologias-usadas ul {
-  background: #f6f7f6;
-  border-radius: 10px;
-  padding: 1rem 2rem;
-  color: #137158;
+  list-style-type: disc;
+  padding-left: 2rem;
+  margin-bottom: 2rem;
+  color: #021711;
 }
+
 .tecnologias-usadas li {
   margin-bottom: 0.5rem;
+  font-size: 1rem;
 }
+
 .contacto {
   margin-top: 2.5rem;
-  background: #e6f9f3;
-  border-radius: 10px;
-  padding: 1.2rem;
-  color: #0d413e;
+}
+
+.equipo-desarrollo {
+  margin-top: 2rem;
 }

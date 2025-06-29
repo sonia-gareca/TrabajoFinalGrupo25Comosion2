@@ -26,6 +26,7 @@ const Menu = () => {
         <Navbar.Collapse id="menu-principal">
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+            <Nav.Link as={Link} to="/acercade">Acerca de</Nav.Link>
             {usuarioActual && (
               <Nav.Link as={Link} to="/favoritos">Favoritos</Nav.Link>
             )}

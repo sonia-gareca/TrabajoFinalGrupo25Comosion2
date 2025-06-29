@@ -7,11 +7,13 @@ import Errorpagina from '../paginas/Errorpagina';
 import InicioSecion from '../paginas/InicioSecion';
 import UserValidacionURL from '../hooks/userValidacionURL';
 import Papelera from '../paginas/Papelera';
+import AcercaDe from '../paginas/AcercaDe';
 
 const RoutesApp = () => (
   <Routes>
     // Rutas públicas
     <Route path="/login" element={<InicioSecion />} />
+    <Route path="/acercade" element={<AcercaDe />} />
     // Rutas protegidas
     <Route path="/" element={<Home />} />
     // Rutas protegidas con validación de usuario
