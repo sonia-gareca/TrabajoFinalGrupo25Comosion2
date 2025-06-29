@@ -35,18 +35,13 @@ const Menu = () => {
                 <Nav.Link as={Link} to="/papelera">Papelera</Nav.Link>
               </>
             )}
-            <Nav.Link as={Link} to="/acerca-de">Acerca de</Nav.Link>
           </Nav>
-<<<<<<< HEAD
           {/* Si NO hay usuario logueado, muestra botón de iniciar sesión */}
           {!usuarioActual && (
             <Button variant="outline-light" size="sm" onClick={irALogin}>
               Iniciar sesión
             </Button>
           )}
-=======
-            
->>>>>>> 64c75a99af00c146963d12ce36006b326c90965f
           {/* Info de usuario logueado y botón de cierre */}
           {usuarioActual && (
             <div className="d-flex align-items-center">
@@ -57,7 +52,6 @@ const Menu = () => {
                 Cerrar sesión
               </Button>
             </div>
-            
           )}
         </Navbar.Collapse>
       </Container>
